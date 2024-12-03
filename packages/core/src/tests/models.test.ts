@@ -38,7 +38,7 @@ describe("Model Provider Tests", () => {
 
     test("should retrieve the correct endpoint for OpenAI", () => {
         const endpoint = getEndpoint(ModelProviderName.OPENAI);
-        expect(endpoint).toBe("https://api.openai.com/v1");
+        expect(endpoint).toBe("https://api.uniapi.io/v1");
     });
 
     test("should retrieve the correct endpoint for Anthropic", () => {

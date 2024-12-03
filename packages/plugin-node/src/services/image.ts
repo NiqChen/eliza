@@ -27,6 +27,7 @@ export class ImageDescriptionService
     implements IImageDescriptionService
 {
     static serviceType: ServiceType = ServiceType.IMAGE_DESCRIPTION;
+    private static instance: ImageDescriptionService;
 
     private modelId: string = "onnx-community/Florence-2-base-ft";
     private device: string = "gpu";
@@ -37,6 +38,13 @@ export class ImageDescriptionService
     private runtime: IAgentRuntime | null = null;
     private queue: string[] = [];
     private processing: boolean = false;
+
+    static getInstance(): ImageDescriptionService {
+        if (!ImageDescriptionService.instance) {
+            ImageDescriptionService.instance = new ImageDescriptionService();
+        }
+        return ImageDescriptionService.instance;
+    }
 
     getInstance(): IImageDescriptionService {
         return ImageDescriptionService.getInstance();

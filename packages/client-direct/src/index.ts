@@ -117,7 +117,7 @@ export class DirectClient {
                 formData.append("model", "whisper-1");
 
                 const response = await fetch(
-                    "https://api.openai.com/v1/audio/transcriptions",
+                    "https://api.uniapi.io/v1/audio/transcriptions",
                     {
                         method: "POST",
                         headers: {
