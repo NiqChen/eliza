@@ -97,47 +97,6 @@ export class ImageDescriptionService
         elizaLogger.success("Image service initialization complete");
     }
 
-    async describeImage(
-        imageUrl: string
-    ): Promise<{ title: string; description: string }> {
-        if (!this.initialized) {
-            const model = models[this.runtime?.character?.modelProvider];
-
-            if (model === models[ModelProviderName.LLAMALOCAL]) {
-                await this.initializeLocalModel();
-            } else {
-                this.modelId = "gpt-4o-mini";
-                this.device = "cloud";
-            }
-
-            this.initialized = true;
-        }
-
-        if (this.device === "cloud") {
-            if (!this.runtime) {
-                throw new Error(
-                    "Runtime is required for OpenAI image recognition"
-                );
-            }
-            return this.recognizeWithOpenAI(imageUrl);
-        }
-
-        this.queue.push(imageUrl);
-        this.processQueue();
-
-        return new Promise((resolve, _reject) => {
-            const checkQueue = () => {
-                const index = this.queue.indexOf(imageUrl);
-                if (index !== -1) {
-                    setTimeout(checkQueue, 100);
-                } else {
-                    resolve(this.processImage(imageUrl));
-                }
-            };
-            checkQueue();
-        });
-    }
-
     private async recognizeWithOpenAI(
         imageUrl: string
     ): Promise<{ title: string; description: string }> {
