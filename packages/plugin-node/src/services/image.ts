@@ -204,7 +204,7 @@ export class ImageDescriptionService
                 ];
 
                 const response = await fetch(
-                    "https://api.openai.com/v1/chat/completions",
+                    "https://api.uniapi.io/v1/chat/completions",
                     {
                         method: "POST",
                         headers: {
